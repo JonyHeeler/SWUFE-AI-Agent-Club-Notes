@@ -1,0 +1,26 @@
+# Operating system
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Generated files
+dist/
+build/
+__pycache__/
+*.py[cod]
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
