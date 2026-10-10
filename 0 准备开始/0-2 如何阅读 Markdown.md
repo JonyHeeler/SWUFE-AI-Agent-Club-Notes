@@ -16,7 +16,9 @@ Markdown 文件的扩展名是 `.md`。它本质上是纯文本，但 MarkText�
 
 也可以右键 `.md` 文件，选择“打开方式”→ MarkText，并将它设为默认应用。
 
-如果只是阅读社团资料，也可以直接在 GitHub 中点击 `.md` 文件，网页会自动完成渲染。
+如果只是阅读协会资料，可以点击根目录下的 `启动阅读器.cmd`，在我们构建的阅读器中阅读，也可以直接在 GitHub 中点击 `.md` 文件，网页会自动完成渲染。
+
+MarkText 的 GitHub 仓库：[marktext/marktext: 📝A simple and elegant markdown editor, available for Linux, macOS and Windows.](https://github.com/marktext/marktext)
 
 ## 常见 Markdown 格式
 
@@ -174,4 +176,4 @@ print("Hello, world!")
 
 ### 阅读 Markdown 必须会写 Markdown 吗？
 
-不需要。能认出标题、列表、链接和代码块，就足够阅读大多数社团资料。但我真的希望你会写。
+不需要。能认出标题、列表、链接和代码块，就足够阅读大多数协会资料。但我真的希望你会写。
