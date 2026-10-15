@@ -135,7 +135,7 @@ if(__exports != exports)module.exports = exports;return module.exports}));
 //# sourceMappingURL=marked.umd.js.map
 
 </script><script>
-const isConstruction=value=>/^(?:\d+(?:-\d+)*\s*)?建设中(?:（纯文本版）)?$/.test(value.trim());
+const isConstruction=value=>value.includes('建设中');
 const $=id=>document.getElementById(id),chapters=[],chapterByPath=new Map();
 const saved=(()=>{try{const value=JSON.parse(localStorage.getItem('club-reader-state')||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{};}catch{return {};}})();
 let current=null,liveSnapshot='',connectionFailed=false;
@@ -175,9 +175,9 @@ function navigateHash(){const hash=chapterHashFromLocation(),path=chapterByPath.
 function startReaderCheck(){
  if(new URLSearchParams(location.search).get('check')!=='1')return;
  const fence=String.fromCharCode(96).repeat(3);
- const text=['| 名称 | 值 |','| --- | --- |','| 测试 | 1 |','','1. 第一步','','   - 嵌套','',fence+'cpp','std::cout << "中文";',fence,'','<'+'script>alert(1)<'+'/script>','','<img src="public/bd0615b85b56e924e01b571c5e637ce.png" onerror="alert(1)">'].join('\n');
+ const text=['| 名称 | 值 |','| --- | --- |','| 测试 | 1 |','','1. 第一步','','   - 嵌套','','**句号放在加粗外**。后续正文','',fence+'cpp','std::cout << "**代码中的星号**";',fence,'','<'+'script>alert(1)<'+'/script>','','<img src="public/bd0615b85b56e924e01b571c5e637ce.png" onerror="alert(1)">'].join('\n');
  const box=document.createElement('div');box.append(renderMarkdown(text,'README.md'));
- const checks=[['章节数据',chapters.length>0],['Markdown 表格',!!box.querySelector('table')],['嵌套列表',!!box.querySelector('ol ul')],['代码块',!!box.querySelector('pre code')],['危险内容已过滤',!box.querySelector('script,[onerror]')],['社团 Logo 可用',!!$('club-logo')]];
+ const checks=[['章节数据',chapters.length>0],['Markdown 表格',!!box.querySelector('table')],['嵌套列表',!!box.querySelector('ol ul')],['中文句号前的加粗',box.querySelector('strong')?.textContent==='句号放在加粗外'],['代码块星号保留',box.querySelector('pre code')?.textContent.includes('**代码中的星号**')],['危险内容已过滤',!box.querySelector('script,[onerror]')],['社团 Logo 可用',!!$('club-logo')]];
  const failed=checks.filter(([,ok])=>!ok);notice(failed.length?'自检失败：'+failed.map(([name])=>name).join('、'):'阅读器自检通过');console.info('reader self-check',checks);
 }
 $('search').addEventListener('input',()=>renderNav($('search').value));$('font-down').onclick=()=>{state.font=Math.max(14,state.font-1);$('content').style.setProperty('--body-size',state.font+'px');save();};$('font-up').onclick=()=>{state.font=Math.min(28,state.font+1);$('content').style.setProperty('--body-size',state.font+'px');save();};$('theme').onclick=()=>{state.dark=!state.dark;document.body.classList.toggle('dark',state.dark);save();};$('mark-read').onclick=()=>{if(!current)return;if(state.read.has(current.path))state.read.delete(current.path);else state.read.add(current.path);save();updateRead();renderNav($('search').value);updateProgress();};

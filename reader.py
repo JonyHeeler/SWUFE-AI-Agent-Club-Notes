@@ -10,7 +10,7 @@ from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parent
-CONSTRUCTION = re.compile(r"^(?:\d+(?:-\d+)*\s*)?建设中(?:（纯文本版）)?$")
+CONSTRUCTION = re.compile("建设中")
 EXCLUDED = {".git", ".venv", "node_modules", "__pycache__"}
 
 
@@ -20,10 +20,11 @@ def load_chapters():
 
     def collect(folder):
         for entry in folder.iterdir():
-            if entry.is_symlink() or entry.name.startswith(".") or entry.name in EXCLUDED:
+            if (entry.is_symlink() or entry.name.startswith(".") or entry.name in EXCLUDED
+                    or CONSTRUCTION.search(entry.name)):
                 continue
             if entry.is_dir():
-                if not CONSTRUCTION.fullmatch(entry.name.strip()):
+                if entry.name.casefold() != "source":
                     collect(entry)
             elif entry.suffix.lower() == ".md" or (
                 entry.suffix.lower() == ".txt" and re.match(r"^\d+-", entry.name)
@@ -32,7 +33,7 @@ def load_chapters():
 
     for folder in sorted(ROOT.iterdir()):
         if folder.is_dir() and not folder.is_symlink() and re.match(r"^\d", folder.name):
-            if not CONSTRUCTION.fullmatch(folder.name.strip()):
+            if not CONSTRUCTION.search(folder.name):
                 collect(folder)
 
     files.sort(key=lambda p: (p.name != "README.md" or p.parent != ROOT,
@@ -46,7 +47,7 @@ def load_chapters():
             continue
         heading = re.search(r"(?m)^#[ \t]+(.+)", content)
         title = re.sub(r"^\d+(?:-\d+)*\s+", "", heading[1].strip() if heading else file.stem)
-        if CONSTRUCTION.fullmatch(title.strip()):
+        if CONSTRUCTION.search(title):
             continue
         path = file.relative_to(ROOT).as_posix()
         number = re.match(r"^\d+(?:-\d+)*", file.stem)

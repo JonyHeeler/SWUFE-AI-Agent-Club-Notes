@@ -24,3 +24,6 @@ __pycache__/
 .env.*
 !.env.example
 
+# Unfinished material: match files and directories at every level.
+*建设中*
+
