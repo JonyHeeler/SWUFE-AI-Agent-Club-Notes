@@ -1,0 +1,48 @@
+:root {
+  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  color: #29493c;
+  background: #e8eeea;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+button { font: inherit; }
+button:focus-visible, canvas:focus-visible { outline: 2px solid #597f6d; outline-offset: 5px; }
+.app { height: 100svh; min-height: 460px; position: relative; overflow: hidden; }
+.masthead { position: absolute; z-index: 2; top: 37px; left: 46px; right: 46px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+.identity { display: flex; align-items: center; gap: 15px; font-size: 14px; font-weight: 500; letter-spacing: 2px; }
+.stage { position: absolute; inset: 0; }
+.viewer { width: 100%; height: 100%; }
+.viewer canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.viewer canvas:active { cursor: grabbing; }
+.toolbar { position: absolute; z-index: 2; left: 46px; right: 46px; bottom: 30px; display: flex; align-items: center; justify-content: space-between; height: 48px; }
+.gesture-hint { display: flex; align-items: center; gap: 11px; color: #687f70; font-size: 11px; letter-spacing: 1px; }
+.gesture-hint svg { width: 21px; height: 21px; }
+.hint-divider { margin: 0 10px; opacity: .45; }
+.controls { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; padding: 5px 7px 5px 10px; border: 1px solid #ffffffa6; border-radius: 32px; background: #f7fbf5b3; box-shadow: 0 4px 24px #304b3509, inset 0 1px 0 #ffffff9c; backdrop-filter: blur(18px); }
+.controls button { display: flex; align-items: center; justify-content: center; gap: 9px; height: 36px; border: 0; background: transparent; color: #385745; cursor: pointer; border-radius: 23px; transition: background .18s, transform .12s; }
+.controls button:hover { background: #dde6dc; }
+.controls button:active { transform: scale(.96); }
+.controls button:disabled { opacity: .45; cursor: default; }
+.controls svg { width: 18px; height: 18px; }
+.rotate-button { padding: 0 15px 0 12px; font-size: 11px; letter-spacing: 1px; min-width: 134px; }
+.reset-button { width: 38px; }
+.control-divider { height: 15px; width: 1px; background: #b5c3b766; margin: 0 5px; }
+.loading, .error { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; font-size: 13px; letter-spacing: 2px; background: #e8eeea; }
+.loading-dot { width: 8px; height: 8px; background: #a78c53; border-radius: 50%; animation: breathe 1.2s ease-in-out infinite alternate; }
+.error p { max-width: 400px; line-height: 1.9; text-align: center; padding: 0 24px; }
+.error button { border: 1px solid #a5b5aa; border-radius: 24px; padding: 10px 22px; color: inherit; background: transparent; cursor: pointer; }
+@keyframes breathe { to { opacity: .25; transform: scale(.75); } }
+@media (max-width: 700px) {
+  .masthead { top: 26px; left: 23px; right: 23px; }
+  .identity { font-size: 13px; gap: 10px; }
+  .toolbar { left: 23px; right: 23px; bottom: 23px; height: 70px; flex-direction: column-reverse; justify-content: space-between; }
+  .controls { position: static; transform: none; }
+  .gesture-hint { font-size: 10px; gap: 7px; }
+  .gesture-hint svg { height: 16px; width: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

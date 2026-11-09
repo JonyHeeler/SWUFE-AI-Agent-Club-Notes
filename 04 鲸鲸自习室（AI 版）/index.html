@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#c9ab8a">
+  <title>鲸鲸自习室</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="ai.js" defer></script>
+</head>
+<body>
+  <p id="save-status" class="sr-only" role="status"></p>
+  <main class="board" aria-label="自习板">
+    <section class="notes-section" aria-label="便利贴">
+      <div class="board-toolbar"><button id="add-note" class="add-button" type="button"><span aria-hidden="true">＋</span> 便利贴</button></div>
+      <div class="notes-scroll"><div id="notes-board"></div></div>
+    </section>
+    <aside class="side-column" aria-label="番茄钟和鲸鲸">
+      <section class="timer-card" aria-labelledby="timer-heading">
+        <h2 id="timer-heading" class="sr-only">番茄钟</h2>
+        <div class="clock-body">
+          <div class="lcd-screen">
+            <div class="timer-tabs" role="group" aria-label="计时模式"><button type="button" data-mode="focus" aria-pressed="true">专注</button><button type="button" data-mode="break" aria-pressed="false">休息</button></div>
+            <output id="time-display" class="sr-only" aria-label="剩余时间">25:00</output>
+            <svg id="lcd-digits" viewBox="0 0 122 44" aria-hidden="true"></svg>
+            <div class="lcd-units" aria-hidden="true"><span>MIN</span><span>SEC</span></div>
+          </div>
+          <div class="timer-actions"><button id="start-timer" class="primary" type="button">开始专注</button><button id="reset-timer" type="button">重置</button></div>
+        </div>
+        <form id="duration-form"><label for="duration">时长</label><input id="duration" type="number" min="1" max="180" step="1" value="25" required><span>分钟</span><button type="submit">设定</button></form>
+        <p id="timer-state" class="sr-only"></p>
+        <p id="timer-message" role="status" aria-live="polite"></p>
+      </section>
+    <section class="dialogue" aria-label="和鲸鲸对话">
+      <header class="chat-header"><button id="greet" type="button" aria-label="和鲸鲸打招呼"><img src="jingjing.jpg" alt="鲸鲸" width="373" height="373"></button><div><h1>鲸鲸</h1><p id="room-message" role="status">我在这里，陪你把事情安排好。</p></div></header>
+      <div id="chat-content" class="chat-content">
+        <div id="user-message" class="user-message" hidden><span class="message-label">你</span><p id="user-text"></p></div>
+        <div class="assistant-message"><span class="message-label">鲸鲸</span><p id="jingjing-message" aria-live="polite">想贴便签、设置番茄钟，还是一起安排一下今天？</p><p id="action-status" role="status" hidden></p></div>
+      </div>
+      <form id="chat-form"><label class="sr-only" for="chat-input">告诉鲸鲸你想做什么</label><textarea id="chat-input" rows="3" maxlength="4000" placeholder="例如：帮我贴一张复习便签，专注 40 分钟" required></textarea><div class="chat-controls"><p id="request-status" role="status">每次只聊当前这一件事</p><button id="send-message" type="submit">发送</button></div></form>
+    </section>
+    </aside>
+  </main>
+  <div id="toast" role="status" hidden><span>已取下便利贴</span><button id="undo-delete" type="button">撤销</button></div>
+  <template id="note-template"><article class="note"><div class="note-top"><button class="drag-handle" type="button" aria-label="移动便利贴：拖动，或使用方向键" title="拖动移动；也可聚焦后按方向键"><span aria-hidden="true">⠿</span></button><button class="note-color" type="button" aria-label="更换便利贴颜色" title="换一种纸色"></button><button class="delete-note" type="button" aria-label="删除便利贴" title="取下这张便利贴">×</button></div><textarea aria-label="便利贴内容" placeholder="写点什么……" spellcheck="false"></textarea></article></template>
+</body>
+</html>

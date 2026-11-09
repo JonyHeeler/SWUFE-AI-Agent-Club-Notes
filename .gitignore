@@ -1,29 +1,37 @@
-# Operating system
-.DS_Store
-Thumbs.db
-Desktop.ini
-
-# Editors and IDEs
-.vscode/
-.idea/
-*.swp
-
-# Temporary files
-*.tmp
-*.temp
-~$*
-
-# Generated files
-dist/
-build/
+# Local environments and dependencies
+.venv/
+venv/
+.runtime/
+node_modules/
 __pycache__/
 *.py[cod]
-
-# Local environment and secrets
 .env
 .env.*
 !.env.example
 
-# Unfinished material: match files and directories at every level.
-*建设中*
+# Builds, generated results and local checks
+dist/
+build/
+.qa/
+.pytest_cache/
+*.log
+05 投资组合优化/results/
+05 投资组合优化/figures/
+05 投资组合优化/results.csv
+05 投资组合优化/results.md
+*.pt
+*.pth
+*.ckpt
 
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.temp
+~$*
+
+# Unfinished material
+*建设中*
